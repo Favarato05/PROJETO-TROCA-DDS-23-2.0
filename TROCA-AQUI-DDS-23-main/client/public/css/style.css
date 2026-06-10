@@ -134,7 +134,7 @@ label{
     padding: 5px;
     background-color: var(--cor-fundo);
     text-align: center;
-    display: none;
+    /* display: none; */
     border-radius: var(--radius-padrao);
 }
 
@@ -142,4 +142,28 @@ label{
     max-width: 100%;
     max-height: 250px;
     object-fit: contain; /* Ajusta pra não distorcer a imagem*/
+}
+
+/* FORMATAÇÃO DAS TABELAS */
+.tabela-dados{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--cor-fundo);
+    margin-top: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0px 4px 6px lightgrey;
+}
+
+.tabela-dados th {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-principal);
+    padding: 15px;
+    border: 1px solid var(--cor-borda);
+    text-align: left;
+}
+
+.tabela-dados td{
+    padding: 15px;
+    border: 1px solid var(--cor-borda);
+    vertical-align: middle;
 }

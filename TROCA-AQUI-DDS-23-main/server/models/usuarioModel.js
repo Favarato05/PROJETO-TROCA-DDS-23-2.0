@@ -22,5 +22,55 @@ module.exports = {
         const [resultado] = await db.execute(query, [nome, email, senha, telefone, foto, perfil])
         // Retorna pro controller o resultado, nesse caso o id do usuário inserido
         return resultado.insertId 
+    },
+
+    //READ
+    listarUsuarios : async() => {
+        // Query pra fazer a consulta no banco
+        const query = `SELECT * FROM usuarios`
+        // Guarda o resultado da consulta na variável
+        const [linhas] = await db.execute(query)
+        // Retorna pro controller o resultado, nesse caso a lista com todos os usuários
+        return linhas 
+    },
+
+    // DELETE
+    deletarUsuario : async(id) => {
+    // Query pra fazer a consulta no banco
+    const query = 'DELETE FROM usuarios WHERE id = ?'
+    // Guarda o resultado da consulta na variável
+    const [resultado] = await db.execute(query, [id])
+    // Retorna pro controller o resultado, nesse caso as linhas afetadas pela query
+    return resultado.affectedRows
+    },
+
+    // UPDATE
+    // BUSCA POR ID
+    buscarPorId: async(id) => {
+        // Query pra fazer a consulta no banco
+        const query = 'SELECT * FROM usuarios WHERE id = ?'
+        // Guarda o resultado da consulta na variável
+        const [linhas] = await db.execute(query, [id])
+        // Retorna pro controller o resultado, nesse caso o usuário encontrado
+        return linhas[0]
+    },
+    // FAZ A ATUALIZAÇÃO
+    atualizarUsuario: async (id, nome, email, senhaHash, telefone, foto, perfil) => {
+        // Lógica para atualizar com e sem foto anexada
+        if(foto){
+            const query = `UPDATE usuarios
+                           SET nome = ?, email = ?, senha = ?, telefone = ?, foto = ?, perfil = ?
+                           WHERE id = ?`
+            const [resultado] = await db.execute(query, [nome, email, senhaHash, telefone, foto, perfil, id])
+            return resultado.affectedRows
+        }
+        else{
+            const query = `UPDATE usuarios
+                           SET nome = ?, email = ?, senha = ?, telefone = ?, perfil = ?
+                           WHERE id = ?`
+            const [resultado] = await db.execute(query, [nome, email, senhaHash, telefone, perfil, id])
+            return resultado.affectedRows
+            
+        }
     }
 }

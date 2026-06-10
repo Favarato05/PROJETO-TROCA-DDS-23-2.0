@@ -28,13 +28,22 @@ router.post('/cadastrar', upload.single('foto'), usuarioController.cadastrar )
 router.use(verificarAutenticacao)
 router.use(somenteAdmin)
 
+// CRUD
+// READ - LISTAR USUÁRIOS
 // Obtém a lista de usuários
-router.get("/", (req, res) => {
-  res.status(200).render('usuarios/listar')});
+router.get("/", usuarioController.listar);
 
+// CREATE - CRIAR USUÁRIOS
 //Retornar a página de cadastro
-router.get("/cadastro", (req, res) => {
- res.status(200).render('usuarios/cadastrar')});
+router.get("/cadastro", usuarioController.renderizarCadastro);
 
+// DELETE - DELETAR UM USUÁRIO
+router.post("/deletar/:id", usuarioController.deletar)
+
+// UPDATE - LISTA UM USUÁRIO
+router.get("/editar/:id", usuarioController.editar)
+
+// UPDATE - AUALIZA AS INFORMAÇOES DE UM USUÁRIO
+router.post("/atualizar/:id", upload.single('foto'), usuarioController.atualizarUsuario)
 
 module.exports = router
